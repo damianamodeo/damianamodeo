@@ -14,7 +14,30 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@damianamodeo/config": ["libs/config/src/index.ts"],
+      "@damianamodeo/services/dexie": ["libs/services/dexie/src/index.ts"],
+      "@damianamodeo/services/firebase": [
+        "libs/services/firebase/src/index.ts"
+      ],
+      "@damianamodeo/services/mapbox": ["libs/services/mapbox/src/index.ts"],
+      "@damianamodeo/services/utility": ["libs/services/utility/src/index.ts"],
+      "@damianamodeo/ui/components/examples": [
+        "libs/ui/components/examples/src/index.ts"
+      ],
+      "@damianamodeo/ui/components/firebase": [
+        "libs/ui/components/firebase/src/index.ts"
+      ],
+      "@damianamodeo/ui/components/mapbox": [
+        "libs/ui/components/mapbox/src/index.ts"
+      ],
+      "@damianamodeo/ui/components/utility": [
+        "libs/ui/components/utility/src/index.ts"
+      ],
+      "@damianamodeo/ui/containers": ["libs/ui/containers/src/index.ts"],
+      "@damianamodeo/ui/icons": ["libs/ui/icons/src/index.ts"],
+      "@damianamodeo/ui/inputs": ["libs/ui/inputs/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
