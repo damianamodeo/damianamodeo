@@ -54,7 +54,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/apps/theocratic-software/orderly"],
+      "outputs": ["{workspaceRoot}/coverage/apps/theocratic-software/orderly"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../../coverage/apps/theocratic-software/orderly"

@@ -54,7 +54,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/apps/theocratic-software/proclaimer"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/theocratic-software/proclaimer"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../../coverage/apps/theocratic-software/proclaimer"

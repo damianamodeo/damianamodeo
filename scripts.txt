@@ -1,0 +1,6 @@
+
+NEW NX WORKSPACE
+clear && npx create-nx-workspace test --preset=react-monorepo --bundler=vite workspaceType=integrated
+
+ADD ORDERLY
+clear && nx g @nx/react:application --name=orderly --directory=theocratic-software --e2eTestRunner=none --globalCss=true --pascalCaseFiles=true --style=none --unitTestRunner=vitest
