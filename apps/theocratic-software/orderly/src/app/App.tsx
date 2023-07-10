@@ -1,34 +1,55 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Screen } from '@damianamodeo/ui/containers';
+import { Home, Settings } from '@damianamodeo/ui/icons';
+import { ComponentType, LazyExoticComponent, ReactNode, lazy } from 'react';
+
+type Subpages = {
+  [name: string]: {
+    Header: LazyExoticComponent<ComponentType<any>>;
+    Content: LazyExoticComponent<ComponentType<any>>;
+  };
+};
+
+type PageType = {
+  startPage: string;
+  Icon: ReactNode;
+  subpages: Subpages;
+};
+
+const icons: { [pageName: string]: any } = {
+  Home: Home,
+  Settings: Settings,
+};
+
+const pages: PageType[] = [
+  { startPage: 'Home', subpages: ['Home', 'Test'] },
+  { startPage: 'Settings', subpages: ['Settings', 'Test'] },
+].map(({ startPage, subpages }: { startPage: string; subpages: string[] }) => {
+  return {
+    startPage: startPage,
+    Icon: icons[startPage],
+    subpages: subpages.reduce((pages: Subpages, page: string) => {
+      pages[page] = {
+        Header: lazy(
+          () =>
+            import(
+              `./pages/${startPage.toLowerCase()}/${page.toLowerCase()}/${page}Header`
+            )
+        ),
+        Content: lazy(
+          () =>
+            import(
+              `./pages/${startPage.toLowerCase()}/${page.toLowerCase()}/${page}`
+            )
+        ),
+      };
+      return pages;
+    }, {}),
+  };
+});
+
 export function App() {
-  return (
-    <div>
-      <h1>
-        <span> Hello there, </span>
-        Welcome theocratic-software-orderly 👋
-      </h1>
-    </div>
-  );
+  return <Screen pages={pages}></Screen>;
 }
 
 export default App;
-
-if (import.meta.vitest) {
-  // add tests related to your file here
-  // For more information please visit the Vitest docs site here: https://vitest.dev/guide/in-source.html
-
-  const { it, expect, beforeEach } = import.meta.vitest;
-  let render: any;
-
-  beforeEach(async () => {
-    render = (await import('@testing-library/react')).render;
-  });
-
-  it('should render successfully', () => {
-    const { baseElement } = render(<App />);
-    expect(baseElement).toBeTruthy();
-  });
-
-  it('should have a greeting as the title', () => {
-    const { getByText } = render(<App />);
-    expect(getByText(/Welcome theocratic-software-orderly/gi)).toBeTruthy();
-  });
-}

@@ -1,52 +1,55 @@
-import './App.css';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Screen } from '@damianamodeo/ui/containers';
+import { Home, Settings } from '@damianamodeo/ui/icons';
+import { ComponentType, LazyExoticComponent, ReactNode, lazy } from 'react';
 
-import NxWelcome from './nx-welcome';
+type Subpages = {
+  [name: string]: {
+    Header: LazyExoticComponent<ComponentType<any>>;
+    Content: LazyExoticComponent<ComponentType<any>>;
+  };
+};
 
-import { Route, Routes, Link } from 'react-router-dom';
+type PageType = {
+  startPage: string;
+  Icon: ReactNode;
+  subpages: Subpages;
+};
+
+const icons: { [pageName: string]: any } = {
+  Home: Home,
+  Settings: Settings,
+};
+
+const pages: PageType[] = [
+  { startPage: 'Home', subpages: ['Home', 'Editlocalstorage', "Localstorage"] },
+  { startPage: 'Settings', subpages: ['Settings', 'Test'] },
+].map(({ startPage, subpages }: { startPage: string; subpages: string[] }) => {
+  return {
+    startPage: startPage,
+    Icon: icons[startPage],
+    subpages: subpages.reduce((pages: Subpages, page: string) => {
+      pages[page] = {
+        Header: lazy(
+          () =>
+            import(
+              `./pages/${startPage.toLowerCase()}/${page.toLowerCase()}/${page}Header`
+            )
+        ),
+        Content: lazy(
+          () =>
+            import(
+              `./pages/${startPage.toLowerCase()}/${page.toLowerCase()}/${page}`
+            )
+        ),
+      };
+      return pages;
+    }, {}),
+  };
+});
 
 export function App() {
-  return (
-    <div>
-      <NxWelcome title="dev-examples" />
-
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
-      </Routes>
-      {/* END: routes */}
-    </div>
-  );
+  return <Screen pages={pages}></Screen>;
 }
 
 export default App;

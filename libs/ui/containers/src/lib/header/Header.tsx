@@ -1,12 +1,17 @@
-/* eslint-disable-next-line */
-export interface HeaderProps {}
+import { ReactNode } from 'react';
 
-export function Header(props: HeaderProps) {
+type HeaderType = {
+  left: string | ReactNode;
+  center: string | ReactNode;
+  right: string | ReactNode;
+};
+
+export const Header = ({ left, center, right }: HeaderType) => {
   return (
-    <div>
-      <h1>Welcome to Header!</h1>
+    <div className={`h-full flex place-items-center dark:text-white`}>
+      <div className={`h-full flex place-items-center p-2 w-32`}>{left}</div>
+      <div className={`h-full flex place-items-center m-auto`}>{center}</div>
+      <div className={`h-full flex place-items-center p-2 w-32`}>{right}</div>
     </div>
   );
-}
-
-export default Header;
+};

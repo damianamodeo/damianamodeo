@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChevronDown } from '@damianamodeo/ui/icons';
 
 export function App() {
-  return (
-    <div>
-      <h1>Proclaimer</h1>
-    </div>
-  );
+  return <div className={`${null} bg-blue-500 h-screen`}>Proclaimer</div>;
 }
 
 export default App;

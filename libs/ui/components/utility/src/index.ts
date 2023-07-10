@@ -1,3 +1,4 @@
+export * from './lib/add-local-storage-item/AddLocalStorageItem';
 export * from './lib/edit-local-storage/EditLocalStorage';
 export * from './lib/version/Version';
 export * from './lib/theme-select/ThemeSelect';
